@@ -20,12 +20,13 @@ const LoginForm = () => {
    
 
 
-  useEffect(()=>{
-    if(session?.user){
-      router.push("/dashboard?tab=posts")
+useEffect(() => {
+  if (session?.user && router) {
+    if (window.location.pathname + window.location.search !== callbackUrl) {
+      router.push(callbackUrl);
     }
-  },[session?.user,router])
-
+  }
+}, [session?.user, router, callbackUrl]);
 
 
 

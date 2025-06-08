@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import RegisterForm from "./RegisterForm";
+import { Suspense } from "react";
 
 const Register = () => {
 
@@ -25,7 +26,9 @@ const Register = () => {
       </div>
 
       <div className=" flex-1 space-y-3 px-5 md:px-10">
-        <RegisterForm/>
+        <Suspense fallback={<p>Loading client component...</p>}>
+           <RegisterForm/>
+        </Suspense>
         <div className="flex gap-2 mt-5 text-sm text-gray-500">
           <p>Don't have an account?</p>
           <Link href={"/login"}>

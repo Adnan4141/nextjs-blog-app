@@ -4,6 +4,7 @@ import PostModel from "@/models/PostModel";
 import Image from "next/image";
 import Link from "next/link";
 import CommentSection from "./components/CommentSection";
+import { dbConnect } from "@/lib/dbConfig";
 
 
 export async function generateMetaData({params}) {
@@ -63,7 +64,7 @@ return {
 
 const PostPage = async ({ params }) => {
   const { slug } = await params;
-
+   await dbConnect()
   const postDoc = await PostModel.findOne({ slug }).lean();
   const post = JSON.parse(JSON.stringify(postDoc));
 

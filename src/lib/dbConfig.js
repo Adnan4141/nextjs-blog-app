@@ -22,6 +22,7 @@ export async function dbConnect() {
     console.log('🔌 Connecting to MongoDB...');
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
+      serverSelectionTimeoutMS:10000,
     }).then((mongoose) => {
       console.log('✅ Connected to MongoDB');
       return mongoose;
