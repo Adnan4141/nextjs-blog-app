@@ -3,6 +3,7 @@ import PostCard from "@/components/shared/PostCard";
 import PostModel from "@/models/PostModel";
 import Image from "next/image";
 import Link from "next/link";
+import CommentSection from "./components/CommentSection";
 
 
 export async function generateMetaData({params}) {
@@ -79,10 +80,10 @@ const PostPage = async ({ params }) => {
         {post?.title}
       </h1>
       <Link
-        className="self-center mt-5"
+        className="self-center  mt-5"
         href={`/search?category=${post?.category}`}
       >
-        <button className="border border-gray-300 px-4 py-1 rounded text-gray-800 hover:bg-gray-100">
+        <button className="border border-gray-300 px-4 py-1 rounded-full cursor-pointer dark:hover:text-blue-950 dark:text-white text-gray-800 hover:bg-gray-100">
           {post?.category}
         </button>
       </Link>
@@ -113,19 +114,24 @@ const PostPage = async ({ params }) => {
         dangerouslySetInnerHTML={{ __html: post?.content || "" }}
       ></div>
 
-      <div className="max-w-4xl mx-auto w-full">
+       <hr className=" border-gray-300 md:mb-10 md:mx-10"/> 
+      {/* <div className="max-w-4xl mx-auto w-full">
         <CallToAction />
-      </div>
+      </div> */}
 
       {/* <CommentSection postId={post?._id} /> */}
+       <CommentSection postId={post?._id}/>
 
-      <section className="flex flex-col justify-center items-center mb-5">
+
+
+      {/* <section className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-2xl mt-5">Recent articles</h1>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
           {recentPosts &&
             recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
         </div>
       </section>
+       */}
     </main>
   );
 };

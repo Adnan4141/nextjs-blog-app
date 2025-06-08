@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import GoogleLogin from "@/components/shared/GoogleLogin";
 import { signIn, useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({});
@@ -15,8 +15,11 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const router = useRouter()
   const {data:session}  = useSession();
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard?tab=profile" 
    
-  
+
+
   useEffect(()=>{
     if(session?.user){
       router.push("/dashboard?tab=posts")
@@ -35,28 +38,27 @@ const LoginForm = () => {
     setError(null);
   };
 
+
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null)
-    console.log(formData);
+
     try {
       const res = await signIn("credentials", {
         redirect: false,
         email: formData.email,
         password: formData.password,
       });
-    
+     
       if(res.ok){
          setError(null)
          toast.success("Logging successfully")
-          router.push("/dashboard?tab=profile")
+          router.push(callbackUrl)
         }else{
          setError(res.error)
       }
-
-
-      console.log(res);
       setLoading(false);
     } catch (error) {
       console.log(error);

@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
      
       },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+     
+      },
     ],
   },
 };

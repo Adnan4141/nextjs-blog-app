@@ -3,13 +3,19 @@
 import { signIn } from "next-auth/react";
 import { Button } from "../ui/button";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import { useSearchParams } from "next/navigation";
 
 
 
 const GoogleLogin = () => {
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard?tab=profile" 
+   
+
+
 
  const hanldePopupSignin = async () => {
-    await signIn("google",{callbackUrl:'/'});
+    await signIn("google",{callbackUrl});
   };
 
 
